@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# Se o arquivo existe (CSS, JS, imagens, uploads), serve normalmente
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Tudo o mais vai para index.php
+RewriteRule ^(.*)$ index.php [QSA,L]

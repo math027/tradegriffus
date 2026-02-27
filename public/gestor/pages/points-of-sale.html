@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradeGriffus - Pontos de Venda</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../shared/css/base/variables.css">
+    <link rel="stylesheet" href="../../shared/css/base/reset.css">
+    <link rel="stylesheet" href="../../shared/css/base/typography.css">
+
+    <link rel="stylesheet" href="../css/layout/sidebar.css">
+    <link rel="stylesheet" href="../css/layout/header.css">
+    <link rel="stylesheet" href="../css/layout/grid.css">
+
+    <link rel="stylesheet" href="../../shared/css/components/cards.css">
+    <link rel="stylesheet" href="../../shared/css/components/tables.css">
+    <link rel="stylesheet" href="../../shared/css/components/buttons.css">
+    <link rel="stylesheet" href="../../shared/css/components/badges.css">
+    <link rel="stylesheet" href="../../shared/css/components/lists.css">
+
+    <link rel="stylesheet" href="../css/pages/dashboard.css">
+    <link rel="stylesheet" href="../css/pages/pdv.css">
+</head>
+<body>
+
+    <aside id="sidebar">
+        <div class="brand">
+            <button id="sidebarToggle" class="btn-menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            
+            <div class="brand-content">
+                <i class="fa-solid fa-layer-group brand-icon"></i> 
+                <span class="brand-text">Trade<span>Griffus</span></span>
+            </div>
+        </div>
+
+        <div class="user-profile-mini">
+            <div class="user-avatar"></div>
+            <div class="user-info">
+                <h4>Matheus S.</h4>
+                <p><span class="dot"></span> Gestor</p>
+            </div>
+        </div>
+
+        <nav>
+            <ul>
+                <div class="nav-category">Principal</div>
+                <li>
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fa-solid fa-chart-pie"></i> 
+                        <span class="link-text">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="routes.html" class="nav-link">
+                        <i class="fa-solid fa-calendar-check"></i> 
+                        <span class="link-text">Roteiros e Visitas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link active">
+                        <i class="fa-solid fa-map-location-dot"></i> 
+                        <span class="link-text">Pontos de Venda</span>
+                    </a>
+                </li>
+                
+                <div class="nav-category">Equipe</div>
+                <li>
+                    <a href="collaborators.html" class="nav-link">
+                        <i class="fa-solid fa-users"></i> 
+                        <span class="link-text">Colaboradores</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="surveys.html" class="nav-link">
+                        <i class="fa-solid fa-clipboard-list"></i> 
+                        <span class="link-text">Pesquisas</span>
+                    </a>
+                </li>
+                
+                <div class="nav-category">Gestão</div>
+                <li>
+                    <a href="reports.html" class="nav-link">
+                        <i class="fa-solid fa-file-invoice"></i> 
+                        <span class="link-text">Relatórios</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="settings.html" class="nav-link">
+                        <i class="fa-solid fa-gear"></i> 
+                        <span class="link-text">Configurações</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div style="margin-top: auto;">
+            <a href="#" class="nav-link logout-link">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> 
+                <span class="link-text">Sair</span>
+            </a>
+        </div>
+    </aside>
+
+    <main>
+        <header>
+            <div>
+                <h2 id="pageTitle">Pontos de Venda</h2>
+                <p id="pageSubtitle">Gerencie sua base de lojas e clientes.</p>
+            </div>
+            <div class="header-actions" id="mainHeaderActions">
+                <button class="btn-primary" id="btnEdit" disabled>
+                    <i class="fa-solid fa-pen"></i> Editar
+                </button>
+                <button class="btn-danger" id="btnDelete" disabled>
+                    <i class="fa-solid fa-trash"></i> Excluir
+                </button>
+                <button class="btn-primary" id="btnCreate">
+                    <i class="fa-solid fa-plus"></i> Novo
+                </button>
+            </div>
+        </header>
+
+        <div id="listView">
+            <div class="kpi-grid" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="card blue-border">
+                    <div class="card-header">
+                        <span class="card-title">Total de PDVs</span>
+                        <div class="card-icon bg-blue-light"><i class="fa-solid fa-store"></i></div>
+                    </div>
+                    <div class="card-value">458</div>
+                    <span class="card-stat">Cadastrados na base</span>
+                </div>
+
+                <div class="card green-border">
+                    <div class="card-header">
+                        <span class="card-title">Ativos</span>
+                        <div class="card-icon bg-green-light"><i class="fa-solid fa-check-circle"></i></div>
+                    </div>
+                    <div class="card-value">442</div>
+                    <span class="card-stat stat-up">96% da base</span>
+                </div>
+
+                <div class="card orange-border">
+                    <div class="card-header">
+                        <span class="card-title">Inativos / Pendentes</span>
+                        <div class="card-icon bg-orange-light"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    </div>
+                    <div class="card-value">16</div>
+                    <span class="card-stat">Aguardando ação</span>
+                </div>
+            </div>
+
+            <div class="section-card" style="margin-top: 24px;">
+                <div class="section-header">
+                    <h3 class="section-title">Listagem de Lojas</h3>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" placeholder="Buscar por nome, rede ou cidade..." class="search-input" style="min-width: 300px;">
+                        <button class="btn-icon" style="border: 1px solid #e5e7eb;"><i class="fa-solid fa-filter"></i></button>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table id="pdvTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;">
+                                    <input type="checkbox" id="selectAll" class="custom-checkbox">
+                                </th>
+                                <th>Loja</th>
+                                <th>Rede</th>
+                                <th>Localização</th>
+                                <th>Última Visita</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="row-checkbox custom-checkbox">
+                                </td>
+                                <td>
+                                    <div class="store-cell">
+                                        <div class="store-icon"><i class="fa-solid fa-shop"></i></div>
+                                        <div>
+                                            <div>Carrefour - Loja 102</div>
+                                            <small style="color: #6b7280; font-size: 0.8em;">CNPJ: 12.345.678/0001-00</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Grupo Carrefour</td>
+                                <td>São Paulo - SP</td>
+                                <td>Hoje, 09:45</td>
+                                <td><span class="status-badge status-done">Ativo</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="row-checkbox custom-checkbox">
+                                </td>
+                                <td>
+                                    <div class="store-cell">
+                                        <div class="store-icon"><i class="fa-solid fa-shop"></i></div>
+                                        <div>
+                                            <div>Pão de Açúcar - Leblon</div>
+                                            <small style="color: #6b7280; font-size: 0.8em;">CNPJ: 98.765.432/0001-99</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>GPA</td>
+                                <td>Rio de Janeiro - RJ</td>
+                                <td>Ontem</td>
+                                <td><span class="status-badge status-done">Ativo</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="row-checkbox custom-checkbox">
+                                </td>
+                                <td>
+                                    <div class="store-cell">
+                                        <div class="store-icon"><i class="fa-solid fa-shop"></i></div>
+                                        <div>
+                                            <div>Mercadinho do Bairro</div>
+                                            <small style="color: #6b7280; font-size: 0.8em;">CNPJ: 11.111.222/0001-33</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Independente</td>
+                                <td>Viana - ES</td>
+                                <td>22/01/2026</td>
+                                <td><span class="status-badge status-pending">Pendente</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="padding: 16px; display: flex; justify-content: center;">
+                     <button class="load-more-btn">Carregar Mais</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="formView" style="display: none; margin-top: 24px;">
+            <div class="section-card" style="padding: 32px;">
+                <form id="pdvForm">
+                    <h3 class="section-title" style="margin-bottom: 24px;">Dados Cadastrais</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 2;">
+                            <label for="cliente">Nome do Cliente / Loja</label>
+                            <input type="text" id="cliente" class="form-input" placeholder="Ex: Supermercado Modelo">
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label for="codigo">Código do Cliente</label>
+                            <input type="text" id="codigo" class="form-input" placeholder="Ex: 004592">
+                        </div>
+                    </div>
+
+                    <h4 style="margin: 20px 0 12px; font-size: 0.95rem; color: #4b5563; font-weight: 600;">Endereço</h4>
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 1;">
+                            <label for="uf">UF</label>
+                            <select id="uf" class="form-input">
+                                <option value="" disabled selected>Selecione</option>
+                                <option value="ES">ES</option>
+                                <option value="SP">SP</option>
+                                <option value="RJ">RJ</option>
+                                <option value="MG">MG</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="flex: 3;">
+                            <label for="municipio">Município</label>
+                            <input type="text" id="municipio" class="form-input" placeholder="Ex: Vitória">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 1;">
+                            <label for="bairro">Bairro</label>
+                            <input type="text" id="bairro" class="form-input" placeholder="Ex: Jardim Camburi">
+                        </div>
+                        <div class="form-group" style="flex: 2;">
+                            <label for="endereco">Logradouro e Número</label>
+                            <input type="text" id="endereco" class="form-input" placeholder="Ex: Av. Dante Michelini, 1000">
+                        </div>
+                    </div>
+
+                    <h4 style="margin: 20px 0 12px; font-size: 0.95rem; color: #4b5563; font-weight: 600;">Vínculo com Promotor</h4>
+                    
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="addPromoterToggle" class="custom-checkbox">
+                        <label for="addPromoterToggle" style="cursor: pointer; margin-bottom: 0;">Deseja adicionar ao promotor(a)?</label>
+                    </div>
+
+                    <div id="promoterFields" style="display: none; margin-top: 16px; padding: 16px; background: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb;">
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 1;">
+                                <label for="nomePromotor">Nome do Promotor</label>
+                                <input type="text" id="nomePromotor" class="form-input" placeholder="Buscar promotor...">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label for="nomeRCA">Nome RCA</label>
+                                <input type="text" id="nomeRCA" class="form-input" placeholder="Nome do representante">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="promoterAllMsg" style="margin-top: 16px; padding: 12px 16px; background: #eff6ff; border-radius: 6px; border: 1px solid #dbeafe; color: #1e40af; display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span>Disponível para todos os promotores (Vísivel para toda a equipe)</span>
+                    </div>
+
+                    <div class="form-actions" style="margin-top: 32px; padding-top: 24px; border-top: 1px solid #e5e7eb; display: flex; justify-content: flex-end; gap: 12px;">
+                        <button type="button" class="btn-secondary" id="btnCancelForm" style="background: white; border: 1px solid #d1d5db; padding: 10px 20px; border-radius: 6px; cursor: pointer;">Cancelar</button>
+                        <button type="button" class="btn-primary" id="btnSaveForm" style="padding: 10px 24px;">Salvar PDV</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/components/sidebar.js"></script>
+    <script src="../js/pages/pdv.js"></script>
+</body>
+</html>

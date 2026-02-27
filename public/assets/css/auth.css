@@ -1,0 +1,213 @@
+/* =============================================
+   Auth Pages (Login)
+   ============================================= */
+
+.auth-body {
+    background: var(--bg-color);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-wrapper {
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 45% 55%;
+    background: var(--white);
+    overflow: hidden;
+}
+
+/* --- Lado branding --- */
+.auth-brand {
+    background: var(--sidebar-bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+    padding: 40px;
+    position: relative;
+}
+
+.bg-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+    background-size: 24px 24px;
+}
+
+.brand-content {
+    max-width: 400px;
+    text-align: center;
+    z-index: 2;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.login-logo-img {
+    height: 60px;
+    width: auto;
+    max-width: 280px;
+    object-fit: contain;
+}
+
+.logo-text {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.brand-desc {
+    color: var(--gray-300);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.brand-subdesc {
+    color: var(--gray-500);
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* --- Lado formulário --- */
+.auth-form-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    background: var(--white);
+}
+
+.auth-box {
+    width: 100%;
+    max-width: 420px;
+}
+
+.auth-header {
+    margin-bottom: 32px;
+}
+
+.auth-header h2 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.auth-header p {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-main);
+    margin-bottom: 6px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 15px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--gray-50);
+    transition: var(--transition);
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: var(--white);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* --- Login button high contrast --- */
+.btn-login {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 8px;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    transition: all 0.2s ease;
+}
+
+.btn-login:hover {
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+}
+
+.btn-login:active {
+    transform: translateY(0);
+}
+
+.forgot-link {
+    display: block;
+    text-align: center;
+    margin-top: 16px;
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+.auth-mobile-logo {
+    text-align: center;
+    margin-bottom: 24px;
+    display: none;
+}
+
+.auth-mobile-logo h1 {
+    color: var(--primary);
+    font-weight: 800;
+    font-size: 28px;
+}
+
+/* --- Mobile Login --- */
+@media (max-width: 900px) {
+    .auth-wrapper {
+        grid-template-columns: 1fr;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .auth-brand {
+        display: none;
+    }
+
+    .auth-mobile-logo {
+        display: block;
+    }
+
+    .auth-form-side {
+        padding: 24px;
+    }
+}

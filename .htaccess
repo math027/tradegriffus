@@ -1,0 +1,42 @@
+RewriteEngine On
+
+# ---- Servir assets e uploads de dentro de public/ ----
+# /assets/... -> public/assets/...
+RewriteCond %{REQUEST_URI} ^/assets/ [NC]
+RewriteRule ^assets/(.*)$ public/assets/$1 [L]
+
+# /uploads/... -> public/uploads/...
+RewriteCond %{REQUEST_URI} ^/uploads/ [NC]
+RewriteRule ^uploads/(.*)$ public/uploads/$1 [L]
+
+# ---- PWA: Service Worker, Manifest e Offline ----
+RewriteRule ^sw\.js$ public/sw.js [L]
+RewriteRule ^manifest\.json$ public/manifest.json [L]
+RewriteRule ^offline\.html$ public/offline.html [L]
+RewriteRule ^offline-form\.html$ public/offline-form.html [L]
+
+# ---- Segurança: bloquear pastas sensíveis ----
+RewriteRule ^(config|core|controllers|models|views|sql|scripts)/ - [F,L]
+
+# ---- Tudo o mais vai para public/index.php ----
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ public/index.php [QSA,L]
+
+# Compressão gzip
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/json
+</IfModule>
+
+# Cache de assets estáticos
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg "access plus 30 days"
+    ExpiresByType image/png "access plus 30 days"
+    ExpiresByType image/webp "access plus 30 days"
+    ExpiresByType text/css "access plus 7 days"
+    ExpiresByType application/javascript "access plus 7 days"
+</IfModule>
+
+# Impedir listagem de diretórios
+Options -Indexes

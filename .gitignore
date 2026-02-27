@@ -1,0 +1,33 @@
+# =============================================
+# TradeGriffus — .gitignore
+# =============================================
+
+# --- Configurações sensíveis (SENHAS/CREDENCIAIS) ---
+config/database.php
+
+# --- Uploads dos usuários (fotos, avatares, etc.) ---
+public/uploads/
+public/uploads - ex/
+
+# --- Backups e ZIPs ---
+-- backups/
+*.zip
+
+# --- Logs e caches do PHP ---
+*.log
+/tmp/
+
+# --- Sistema operacional ---
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# --- IDEs e editores ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- Antigravity / Gemini ---
+.gemini/

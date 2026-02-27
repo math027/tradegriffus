@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradeGriffus - Pesquisas</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../shared/css/base/variables.css">
+    <link rel="stylesheet" href="../../shared/css/base/reset.css">
+    <link rel="stylesheet" href="../../shared/css/base/typography.css">
+
+    <link rel="stylesheet" href="../css/layout/sidebar.css">
+    <link rel="stylesheet" href="../css/layout/header.css">
+    <link rel="stylesheet" href="../css/layout/grid.css">
+
+    <link rel="stylesheet" href="../../shared/css/components/cards.css">
+    <link rel="stylesheet" href="../../shared/css/components/tables.css">
+    <link rel="stylesheet" href="../../shared/css/components/buttons.css">
+    <link rel="stylesheet" href="../../shared/css/components/badges.css">
+    <link rel="stylesheet" href="../../shared/css/components/lists.css">
+
+    <link rel="stylesheet" href="../css/pages/dashboard.css">
+    
+    <style>
+        /* Estilos específicos para a barra de filtros desta página */
+        .filter-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            padding: 1rem;
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-color);
+            align-items: center;
+        }
+        .filter-input {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.875rem;
+        }
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <aside id="sidebar">
+        <div class="brand">
+            <button id="sidebarToggle" class="btn-menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            
+            <div class="brand-content">
+                <i class="fa-solid fa-layer-group brand-icon"></i> 
+                <span class="brand-text">Trade<span>Griffus</span></span>
+            </div>
+        </div>
+
+        <div class="user-profile-mini">
+            <div class="user-avatar"></div>
+            <div class="user-info">
+                <h4>Matheus S.</h4>
+                <p><span class="dot"></span> Gestor</p>
+            </div>
+        </div>
+
+        <nav>
+            <ul>
+                <div class="nav-category">Principal</div>
+                <li>
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fa-solid fa-chart-pie"></i> 
+                        <span class="link-text">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="routes.html" class="nav-link">
+                        <i class="fa-solid fa-calendar-check"></i> 
+                        <span class="link-text">Roteiros e Visitas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="points-of-sale.html" class="nav-link">
+                        <i class="fa-solid fa-map-location-dot"></i> 
+                        <span class="link-text">Pontos de Venda</span>
+                    </a>
+                </li>
+                
+                <div class="nav-category">Equipe</div>
+                <li>
+                    <a href="collaborators.html" class="nav-link">
+                        <i class="fa-solid fa-users"></i> 
+                        <span class="link-text">Colaboradores</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link active">
+                        <i class="fa-solid fa-clipboard-list"></i> 
+                        <span class="link-text">Pesquisas</span>
+                    </a>
+                </li>
+                
+                <div class="nav-category">Gestão</div>
+                <li>
+                    <a href="#" class="nav-link">
+                        <i class="fa-solid fa-file-invoice"></i> 
+                        <span class="link-text">Relatórios</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        <i class="fa-solid fa-gear"></i> 
+                        <span class="link-text">Configurações</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div style="margin-top: auto;">
+            <a href="#" class="nav-link logout-link">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> 
+                <span class="link-text">Sair</span>
+            </a>
+        </div>
+    </aside>
+
+    <main>
+        <header>
+            <div>
+                <h2>Pesquisas de Campo</h2>
+                <p>Gerencie formulários e analise respostas coletadas no PDV.</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn-primary"><i class="fa-solid fa-plus"></i> Nova Pesquisa</button>
+            </div>
+        </header>
+
+        <div class="kpi-grid">
+            <div class="card blue-border">
+                <div class="card-header">
+                    <span class="card-title">Respostas Hoje</span>
+                    <div class="card-icon bg-blue-light"><i class="fa-solid fa-clipboard-check"></i></div>
+                </div>
+                <div class="card-value">42</div>
+                <span class="card-stat stat-up"><i class="fa-solid fa-arrow-up"></i> 5% vs ontem</span>
+            </div>
+
+            <div class="card green-border">
+                <div class="card-header">
+                    <span class="card-title">Preço Médio (SKU Principal)</span>
+                    <div class="card-icon bg-green-light"><i class="fa-solid fa-tag"></i></div>
+                </div>
+                <div class="card-value">R$ 14,90</div>
+                <span class="card-stat">Estável na semana</span>
+            </div>
+
+            <div class="card orange-border">
+                <div class="card-header">
+                    <span class="card-title">Rupturas Reportadas</span>
+                    <div class="card-icon bg-orange-light"><i class="fa-solid fa-box-open"></i></div>
+                </div>
+                <div class="card-value">15</div>
+                <span class="card-stat stat-down">3 PDVs críticos</span>
+            </div>
+        </div>
+
+        <div class="section-card" style="margin-top: 2rem;">
+            <div class="section-header">
+                <h3 class="section-title">Pesquisas Respondidas</h3>
+            </div>
+            
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <input type="text" placeholder="Buscar por PDV, Promotor ou Pesquisa..." class="filter-input" style="width: 300px;">
+                    <select class="filter-input">
+                        <option value="">Todos os Status</option>
+                        <option value="concluido">Concluído</option>
+                        <option value="incompleto">Incompleto</option>
+                    </select>
+                    <select class="filter-input">
+                        <option value="">Tipo de Pesquisa</option>
+                        <option value="preco">Preço</option>
+                        <option value="ruptura">Ruptura</option>
+                        <option value="exibicao">Exibição</option>
+                    </select>
+                </div>
+                <div class="filter-actions">
+                     <button class="btn-icon" style="background: transparent; border: 1px solid var(--border-color);"><i class="fa-solid fa-filter"></i></button>
+                     <button class="btn-icon" style="background: transparent; border: 1px solid var(--border-color);"><i class="fa-solid fa-download"></i></button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pesquisa</th>
+                            <th>PDV / Cliente</th>
+                            <th>Promotor</th>
+                            <th>Data/Hora</th>
+                            <th>Resultado Principal</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Monitoramento de Preço</strong><br><span style="font-size: 0.75rem; color: #666;">SKU: Café Griffus 500g</span></td>
+                            <td>Carrefour - Loja 102</td>
+                            <td class="promoter-cell">
+                                <div class="activity-avatar small" style="background: #dbeafe; color: #1e40af;">AS</div> Andreza
+                            </td>
+                            <td>Hoje, 09:30</td>
+                            <td>R$ 14,99</td>
+                            <td class="action-cell">
+                                <button class="btn-icon-sm"><i class="fa-solid fa-eye"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ruptura de Gôndola</strong><br><span style="font-size: 0.75rem; color: #666;">Categoria: Matinais</span></td>
+                            <td>Pão de Açúcar - Leblon</td>
+                            <td class="promoter-cell">
+                                <div class="activity-avatar small" style="background: #d1fae5; color: #065f46;">KR</div> Katia
+                            </td>
+                            <td>Hoje, 10:45</td>
+                            <td><span class="status-badge status-late">Ruptura Total</span></td>
+                            <td class="action-cell">
+                                <button class="btn-icon-sm"><i class="fa-solid fa-eye"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Share de Gôndola</strong><br><span style="font-size: 0.75rem; color: #666;">Frente de Caixa</span></td>
+                            <td>Supermercado Extra</td>
+                            <td class="promoter-cell">
+                                <div class="activity-avatar small" style="background: #ffedd5; color: #9a3412;">JS</div> João
+                            </td>
+                            <td>Ontem, 16:20</td>
+                            <td>35% Share</td>
+                            <td class="action-cell">
+                                <button class="btn-icon-sm"><i class="fa-solid fa-eye"></i></button>
+                            </td>
+                        </tr>
+                         <tr>
+                            <td><strong>Ação Promocional</strong><br><span style="font-size: 0.75rem; color: #666;">Campanha Verão</span></td>
+                            <td>Atacadão - Centro</td>
+                            <td class="promoter-cell">
+                                <div class="activity-avatar small" style="background: #f3f4f6;">AD</div> Ana
+                            </td>
+                            <td>Ontem, 14:10</td>
+                            <td><span class="status-badge status-done">Implementado</span></td>
+                            <td class="action-cell">
+                                <button class="btn-icon-sm"><i class="fa-solid fa-eye"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div style="display: flex; justify-content: center; margin-top: 1.5rem;">
+                 <button class="load-more-btn">Carregar Mais Respostas</button>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="../js/components/sidebar.js"></script>
+</body>
+</html>

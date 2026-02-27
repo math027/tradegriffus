@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>TradeGriffus | Modo Offline</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="icon" type="image/png" href="/assets/img/icone_tradegriffus.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/variables.css">
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/css/typography.css">
+    <link rel="stylesheet" href="/assets/css/components.css">
+    <link rel="stylesheet" href="/assets/css/layout.css">
+    <style>
+        body {
+            background: var(--bg-color);
+            font-family: var(--font-family);
+            padding: 0;
+            margin: 0;
+        }
+
+        .offline-app {
+            min-height: 100vh;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        .offline-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            margin-bottom: 16px;
+        }
+
+        .offline-header img {
+            height: 32px;
+        }
+
+        .offline-header h2 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .offline-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(90deg, #dc2626, #ef4444);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .form-page {
+            display: none;
+        }
+
+        .form-page.active {
+            display: block;
+        }
+
+        .section-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-md);
+        }
+
+        .pdv-info {
+            text-align: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .pdv-info h3 {
+            margin: 0 0 4px;
+        }
+
+        .pdv-info p {
+            color: var(--text-muted);
+            font-size: var(--font-sm);
+            margin: 0;
+        }
+
+        .foto-capture-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
+            padding: var(--space-lg);
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all 0.2s;
+            background: var(--gray-50);
+        }
+
+        .foto-capture-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .foto-capture-btn.has-photo {
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .btn-primary-full {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius);
+            font-size: var(--font-base);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-primary-full:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-primary-full:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-success-full {
+            width: 100%;
+            padding: 14px;
+            background: var(--success);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius);
+            font-size: var(--font-base);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-back {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            text-align: center;
+            display: block;
+            background: var(--gray-100);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-size: var(--font-sm);
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .preview-container {
+            display: none;
+            margin-bottom: var(--space-sm);
+            position: relative;
+        }
+
+        .preview-container img {
+            width: 100%;
+            border-radius: var(--radius);
+            max-height: 300px;
+            object-fit: cover;
+        }
+
+        .preview-remove {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .geo-status {
+            text-align: center;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius);
+            background: var(--gray-50);
+            margin-bottom: var(--space-md);
+            font-size: var(--font-sm);
+        }
+
+        .success-page {
+            text-align: center;
+            padding: var(--space-xl) var(--space-md);
+        }
+
+        .success-page i {
+            font-size: 64px;
+            color: var(--success);
+            margin-bottom: 16px;
+        }
+
+        .success-page h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .success-page p {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .pending-badge-lg {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: #d97706;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        /* Ponto buttons */
+        .ponto-offline-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 24px 48px;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            width: 100%;
+            max-width: 280px;
+            margin: 0 auto;
+            transition: all 0.3s;
+        }
+
+        .ponto-offline-btn i {
+            font-size: 28px;
+        }
+
+        .ponto-offline-btn small {
+            font-size: 24px;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .ponto-offline-btn.entrada {
+            background: linear-gradient(135deg, #059669, #047857);
+        }
+
+        .ponto-offline-btn.almoco_saida {
+            background: linear-gradient(135deg, #d97706, #b45309);
+        }
+
+        .ponto-offline-btn.almoco_retorno {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        }
+
+        .ponto-offline-btn.saida {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+        }
+
+        /* Visit list for dashboard cache */
+        .offline-visit-card {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: var(--space-xs);
+            background: var(--white);
+        }
+
+        .offline-visit-card .visit-num {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .offline-visit-card .visit-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .offline-visit-card .visit-body h4 {
+            font-size: var(--font-sm);
+            margin: 0 0 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .offline-visit-card .visit-body p {
+            font-size: var(--font-xs);
+            color: var(--text-muted);
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .visit-action-btn {
+            padding: 6px 14px;
+            border-radius: var(--radius);
+            font-size: 12px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .visit-action-btn.checkin {
+            background: var(--primary);
+            color: white;
+        }
+
+        .visit-action-btn.checkout {
+            background: var(--success);
+            color: white;
+        }
+
+        .visit-action-btn.done {
+            background: var(--gray-100);
+            color: var(--text-muted);
+            cursor: default;
+        }
+
+        textarea.form-control {
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-family: var(--font-family);
+            font-size: var(--font-base);
+            resize: vertical;
+        }
+
+        /* Multi-photo grid */
+        .photos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: var(--space-md);
+        }
+
+        .photos-grid .photo-thumb {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .photos-grid .photo-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photos-grid .photo-thumb .remove-thumb {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .add-photo-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            aspect-ratio: 1;
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 11px;
+            background: var(--gray-50);
+            transition: all 0.2s;
+        }
+
+        .add-photo-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .add-photo-btn i {
+            font-size: 20px;
+        }
+
+        .photos-count {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: right;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="offline-app">
+        <!-- Header -->
+        <div class="offline-header">
+            <img src="/assets/img/icone_tradegriffus.png" alt="Griffus">
+            <h2>TradeGriffus</h2>
+        </div>
+        <div class="offline-badge">
+            <i class="fa-solid fa-wifi-slash"></i> Modo Offline
+        </div>
+
+        <!-- ======= PAGE: Dashboard (lista de visitas) ======= -->
+        <div class="form-page" id="page-dashboard">
+            <div class="section-card">
+                <h3 style="margin:0 0 4px;"><span id="dash-greeting">Olá!</span> 👋</h3>
+                <p class="text-muted" style="margin:0 0 16px;">Sua rota de hoje (modo offline)</p>
+                <div id="dash-visits-list">
+                    <p class="text-muted text-sm" style="text-align:center;">Carregando visitas...</p>
+                </div>
+            </div>
+
+            <div class="pending-badge-lg" id="dash-pending" style="display:none;">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                <span><strong id="dash-pending-count">0</strong> ação(ões) pendentes de sincronização</span>
+            </div>
+        </div>
+
+        <!-- ======= PAGE: Check-in ======= -->
+        <div class="form-page" id="page-checkin">
+            <div class="section-card">
+                <div class="pdv-info">
+                    <div class="card-icon bg-blue"
+                        style="margin: 0 auto var(--space-md); width: 56px; height: 56px; font-size: 24px; border-radius: 50%; display:flex; align-items:center; justify-content:center; background: var(--primary-light); color: var(--primary);">
+                        <i class="fa-solid fa-camera"></i>
+                    </div>
+                    <h3>Check-in Offline</h3>
+                    <p id="checkin-pdv-name">PDV</p>
+                    <p id="checkin-pdv-address"></p>
+                </div>
+
+                <div class="geo-status" id="checkin-geo-status">
+                    <i class="fa-solid fa-spinner fa-spin"></i> Obtendo localização...
+                </div>
+
+                <div class="form-group">
+                    <label style="font-weight:600;">
+                        <i class="fa-solid fa-store"></i> Foto da Fachada <span style="color:var(--danger);">*</span>
+                    </label>
+                    <p class="text-sm text-muted" style="margin-bottom:var(--space-xs);">
+                        Tire uma foto da fachada do ponto de venda
+                    </p>
+                    <div class="preview-container" id="checkin-preview-container">
+                        <img id="checkin-preview-img">
+                        <button type="button" class="preview-remove" onclick="OfflineForm.removePhoto('checkin')">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <label class="foto-capture-btn" id="checkin-capture-btn">
+                        <input type="file" accept="image/*" capture="environment" style="display:none;"
+                            onchange="OfflineForm.previewPhoto(this, 'checkin')" id="checkin-foto-input">
+                        <i class="fa-solid fa-camera" style="font-size:24px;"></i>
+                        <span>Tirar Foto</span>
+                    </label>
+                </div>
+
+                <button class="btn-primary-full" id="checkin-submit-btn" disabled onclick="OfflineForm.submitCheckin()">
+                    <i class="fa-solid fa-right-to-bracket"></i> Confirmar Check-in
+                </button>
+                <button class="btn-back" onclick="OfflineForm.goTo('dashboard')">Voltar</button>
+            </div>
+        </div>
+
+        <!-- ======= PAGE: Checkout ======= -->
+        <div class="form-page" id="page-checkout">
+            <div class="section-card">
+                <div class="pdv-info">
+                    <div class="card-icon bg-blue"
+                        style="margin: 0 auto var(--space-md); width: 56px; height: 56px; font-size: 24px; border-radius: 50%; display:flex; align-items:center; justify-content:center; background: rgba(16,185,129,0.15); color: var(--success);">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </div>
+                    <h3>Checkout Offline</h3>
+                    <p id="checkout-pdv-name">PDV</p>
+                </div>
+
+                <div class="geo-status" id="checkout-geo-status">
+                    <i class="fa-solid fa-spinner fa-spin"></i> Obtendo localização...
+                </div>
+
+                <!-- Observação -->
+                <div class="form-group" style="margin-bottom:var(--space-md);">
+                    <label style="font-weight:600;">
+                        <i class="fa-solid fa-sticky-note"></i> Observações
+                    </label>
+                    <textarea id="checkout-observacao" class="form-control" rows="3"
+                        placeholder="Anote observações sobre esta visita..."></textarea>
+                </div>
+
+                <!-- Fotos de trabalho (múltiplas) -->
+                <div class="form-group" style="margin-bottom:var(--space-md);">
+                    <label style="font-weight:600;">
+                        <i class="fa-solid fa-images"></i> Fotos do PDV
+                    </label>
+                    <p class="text-sm text-muted" style="margin-bottom:var(--space-xs);">
+                        Adicione fotos do ponto de venda
+                    </p>
+                    <div class="photos-count" id="work-photos-count">0 / 10 fotos</div>
+                    <div class="photos-grid" id="work-photos-grid">
+                        <label class="add-photo-btn" id="add-work-photo-btn">
+                            <input type="file" accept="image/*" capture="environment" style="display:none;"
+                                onchange="OfflineForm.addWorkPhoto(this)" multiple>
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Adicionar</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Foto checkout -->
+                <div class="form-group">
+                    <label style="font-weight:600;">
+                        <i class="fa-solid fa-store"></i> Foto da Fachada <span style="color:var(--danger);">*</span>
+                    </label>
+                    <div class="preview-container" id="checkout-preview-container">
+                        <img id="checkout-preview-img">
+                        <button type="button" class="preview-remove" onclick="OfflineForm.removePhoto('checkout')">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <label class="foto-capture-btn" id="checkout-capture-btn">
+                        <input type="file" accept="image/*" capture="environment" style="display:none;"
+                            onchange="OfflineForm.previewPhoto(this, 'checkout')" id="checkout-foto-input">
+                        <i class="fa-solid fa-camera" style="font-size:24px;"></i>
+                        <span>Tirar Foto</span>
+                    </label>
+                </div>
+
+                <button class="btn-success-full" id="checkout-submit-btn" disabled
+                    onclick="OfflineForm.submitCheckout()">
+                    <i class="fa-solid fa-right-from-bracket"></i> Finalizar Visita
+                </button>
+                <button class="btn-back" onclick="OfflineForm.goTo('dashboard')">Voltar</button>
+            </div>
+        </div>
+
+        <!-- ======= PAGE: Ponto ======= -->
+        <div class="form-page" id="page-ponto">
+            <div class="section-card">
+                <div class="pdv-info">
+                    <h3><i class="fa-solid fa-clock"></i> Meu Ponto</h3>
+                    <p id="ponto-date"></p>
+                </div>
+                <div style="text-align:center; padding: var(--space-lg);">
+                    <button class="ponto-offline-btn" id="ponto-btn" onclick="OfflineForm.submitPonto()">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <span id="ponto-label">Registrar</span>
+                        <small id="ponto-time"></small>
+                    </button>
+                </div>
+                <button class="btn-back" onclick="OfflineForm.goTo('dashboard')">Voltar</button>
+            </div>
+        </div>
+
+        <!-- ======= PAGE: Success ======= -->
+        <div class="form-page" id="page-success">
+            <div class="section-card success-page">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                <h3 id="success-title">Salvo com sucesso!</h3>
+                <p id="success-msg">Será sincronizado automaticamente quando voltar a ter internet.</p>
+                <div class="pending-badge-lg">
+                    <i class="fa-solid fa-clock"></i>
+                    <span>Pendente de sincronização</span>
+                </div>
+                <button class="btn-primary-full" onclick="OfflineForm.goTo('dashboard')"
+                    style="max-width:300px; margin:16px auto 0;">
+                    <i class="fa-solid fa-house"></i> Voltar ao Painel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/assets/js/offline-db.js"></script>
+    <script>
+        /**
+         * OfflineForm — Lógica da página offline standalone
+         */
+        const OfflineForm = {
+            currentVisit: null,
+            photos: { checkin: null, checkout: null },
+            workPhotos: [],
+            geo: { lat: null, lng: null },
+
+            // ==========================================
+            // Navegação entre páginas
+            // ==========================================
+            goTo(page) {
+                document.querySelectorAll('.form-page').forEach(p => p.classList.remove('active'));
+                const el = document.getElementById('page-' + page);
+                if (el) el.classList.add('active');
+
+                if (page === 'dashboard') this.loadDashboard();
+                if (page === 'checkin' || page === 'checkout') this.getGeo(page);
+            },
+
+            // ==========================================
+            // Dashboard (visitas do dia)
+            // ==========================================
+            loadDashboard() {
+                const data = this._getVisitData();
+                const container = document.getElementById('dash-visits-list');
+
+                // Greeting
+                const userName = localStorage.getItem('griffus_user_name') || '';
+                document.getElementById('dash-greeting').textContent = userName ? `Olá, ${userName}!` : 'Olá!';
+
+                if (!data || !data.visits || data.visits.length === 0) {
+                    container.innerHTML = '<p class="text-muted text-sm" style="text-align:center; padding:16px;">Nenhuma visita salva para hoje. Abra o app com internet para carregar a rota.</p>';
+                    return;
+                }
+
+                let html = '';
+                data.visits.forEach((v, idx) => {
+                    const isDone = v.status === 'concluida';
+                    const isActive = v.status === 'em_andamento';
+                    let actionBtn = '';
+
+                    if (isDone) {
+                        actionBtn = '<span class="visit-action-btn done"><i class="fa-solid fa-check"></i> Feita</span>';
+                    } else if (isActive) {
+                        actionBtn = `<button class="visit-action-btn checkout" onclick="OfflineForm.startCheckout(${idx})"><i class="fa-solid fa-right-from-bracket"></i> Checkout</button>`;
+                    } else {
+                        actionBtn = `<button class="visit-action-btn checkin" onclick="OfflineForm.startCheckin(${idx})"><i class="fa-solid fa-right-to-bracket"></i> Check-in</button>`;
+                    }
+
+                    html += `
+                <div class="offline-visit-card">
+                    <div class="visit-num">${isDone ? '<i class="fa-solid fa-check-circle" style="color:var(--success);"></i>' : (idx + 1)}</div>
+                    <div class="visit-body">
+                        <h4>${this._esc(v.pdv_nome)}</h4>
+                        <p><i class="fa-solid fa-location-dot"></i> ${this._esc(v.pdv_endereco || 'Sem endereço')}</p>
+                    </div>
+                    ${actionBtn}
+                </div>`;
+                });
+
+                container.innerHTML = html;
+
+                // Pending count
+                OfflineDB.countPending().then(count => {
+                    if (count > 0) {
+                        document.getElementById('dash-pending-count').textContent = count;
+                        document.getElementById('dash-pending').style.display = 'flex';
+                    } else {
+                        document.getElementById('dash-pending').style.display = 'none';
+                    }
+                }).catch(() => { });
+            },
+
+            // ==========================================
+            // Check-in
+            // ==========================================
+            startCheckin(idx) {
+                const data = this._getVisitData();
+                if (!data || !data.visits[idx]) return;
+
+                this.currentVisit = data.visits[idx];
+                this.photos.checkin = null;
+
+                document.getElementById('checkin-pdv-name').textContent = this.currentVisit.pdv_nome;
+                document.getElementById('checkin-pdv-address').textContent = this.currentVisit.pdv_endereco || '';
+                document.getElementById('checkin-submit-btn').disabled = true;
+                document.getElementById('checkin-preview-container').style.display = 'none';
+                document.getElementById('checkin-capture-btn').style.display = 'flex';
+                const input = document.getElementById('checkin-foto-input');
+                if (input) input.value = '';
+
+                this.goTo('checkin');
+            },
+
+            async submitCheckin() {
+                if (!this.currentVisit || !this.photos.checkin) return;
+
+                const btn = document.getElementById('checkin-submit-btn');
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Salvando...';
+
+                try {
+                    const fileData = await OfflineDB.fileToStorable(this.photos.checkin, 'foto');
+                    const csrfToken = localStorage.getItem('griffus_csrf') || '';
+
+                    await OfflineDB.saveAction({
+                        tipo: 'checkin',
+                        url: '/promotor/checkin/' + this.currentVisit.id,
+                        method: 'POST',
+                        fields: {
+                            _token: csrfToken,
+                            latitude: this.geo.lat || '',
+                            longitude: this.geo.lng || '',
+                        },
+                        files: [fileData],
+                        meta: { pdv_nome: this.currentVisit.pdv_nome },
+                    });
+
+                    // Update local status
+                    this._updateVisitStatus(this.currentVisit.id, 'em_andamento');
+
+                    document.getElementById('success-title').textContent = 'Check-in salvo!';
+                    document.getElementById('success-msg').textContent =
+                        `${this.currentVisit.pdv_nome} — será sincronizado quando voltar a ter internet.`;
+                    this.goTo('success');
+                } catch (err) {
+                    console.error('Erro ao salvar check-in offline:', err);
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Confirmar Check-in';
+                    alert('Erro ao salvar. Tente novamente.');
+                }
+            },
+
+            // ==========================================
+            // Checkout
+            // ==========================================
+            startCheckout(idx) {
+                const data = this._getVisitData();
+                if (!data || !data.visits[idx]) return;
+
+                this.currentVisit = data.visits[idx];
+                this.photos.checkout = null;
+                this.workPhotos = [];
+
+                document.getElementById('checkout-pdv-name').textContent = this.currentVisit.pdv_nome;
+                document.getElementById('checkout-submit-btn').disabled = true;
+                document.getElementById('checkout-preview-container').style.display = 'none';
+                document.getElementById('checkout-capture-btn').style.display = 'flex';
+                document.getElementById('checkout-observacao').value = '';
+                const input = document.getElementById('checkout-foto-input');
+                if (input) input.value = '';
+
+                // Reset work photos grid
+                this._renderWorkPhotos();
+
+                this.goTo('checkout');
+            },
+
+            async submitCheckout() {
+                if (!this.currentVisit || !this.photos.checkout) return;
+
+                const btn = document.getElementById('checkout-submit-btn');
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Salvando...';
+
+                try {
+                    const fileData = await OfflineDB.fileToStorable(this.photos.checkout, 'foto_checkout');
+                    const csrfToken = localStorage.getItem('griffus_csrf') || '';
+                    const obs = document.getElementById('checkout-observacao').value || '';
+
+                    // Include work photos
+                    const allFiles = [fileData];
+                    for (let i = 0; i < this.workPhotos.length; i++) {
+                        const wp = await OfflineDB.fileToStorable(this.workPhotos[i].file, 'fotos_trabalho[]');
+                        wp.fileName = `foto_trabalho_${i}.webp`;
+                        allFiles.push(wp);
+                    }
+
+                    await OfflineDB.saveAction({
+                        tipo: 'checkout',
+                        url: '/promotor/checkout/' + this.currentVisit.id,
+                        method: 'POST',
+                        fields: {
+                            _token: csrfToken,
+                            latitude: this.geo.lat || '',
+                            longitude: this.geo.lng || '',
+                            observacao: obs,
+                        },
+                        files: allFiles,
+                        meta: { pdv_nome: this.currentVisit.pdv_nome },
+                    });
+
+                    // Update local status
+                    this._updateVisitStatus(this.currentVisit.id, 'concluida');
+
+                    document.getElementById('success-title').textContent = 'Checkout salvo!';
+                    document.getElementById('success-msg').textContent =
+                        `${this.currentVisit.pdv_nome} — será sincronizado quando voltar a ter internet.`;
+                    this.goTo('success');
+                } catch (err) {
+                    console.error('Erro ao salvar checkout offline:', err);
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fa-solid fa-right-from-bracket"></i> Finalizar Visita';
+                    alert('Erro ao salvar. Tente novamente.');
+                }
+            },
+
+            // ==========================================
+            // Ponto
+            // ==========================================
+            startPonto() {
+                const pontoData = JSON.parse(localStorage.getItem('griffus_ponto') || '{}');
+                const now = new Date();
+                document.getElementById('ponto-date').textContent = now.toLocaleDateString('pt-BR', {
+                    weekday: 'long', day: '2-digit', month: 'long', year: 'numeric'
+                });
+                document.getElementById('ponto-time').textContent = now.toLocaleTimeString('pt-BR', {
+                    hour: '2-digit', minute: '2-digit'
+                });
+
+                const tipo = pontoData.proximoPasso || 'entrada';
+                const labels = {
+                    entrada: ['Registrar Entrada', 'fa-right-to-bracket', 'entrada'],
+                    almoco_saida: ['Saída para Almoço', 'fa-utensils', 'almoco_saida'],
+                    almoco_retorno: ['Retorno do Almoço', 'fa-rotate-left', 'almoco_retorno'],
+                    saida: ['Registrar Saída', 'fa-right-from-bracket', 'saida'],
+                };
+                const btn = labels[tipo] || labels.entrada;
+                const btnEl = document.getElementById('ponto-btn');
+                btnEl.className = 'ponto-offline-btn ' + btn[2];
+                btnEl.querySelector('i').className = 'fa-solid ' + btn[1];
+                document.getElementById('ponto-label').textContent = btn[0];
+
+                this.goTo('ponto');
+            },
+
+            async submitPonto() {
+                const pontoData = JSON.parse(localStorage.getItem('griffus_ponto') || '{}');
+                const tipo = pontoData.proximoPasso || 'entrada';
+                const csrfToken = localStorage.getItem('griffus_csrf') || '';
+
+                const btn = document.getElementById('ponto-btn');
+                btn.disabled = true;
+
+                try {
+                    await OfflineDB.saveAction({
+                        tipo: 'ponto',
+                        url: '/promotor/ponto/registrar',
+                        method: 'POST',
+                        fields: {
+                            _token: csrfToken,
+                            tipo: tipo,
+                        },
+                        files: [],
+                        meta: {
+                            tipo_label: document.getElementById('ponto-label').textContent,
+                            hora: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+                        },
+                    });
+
+                    // Advance ponto step locally
+                    const steps = ['entrada', 'almoco_saida', 'almoco_retorno', 'saida', 'completo'];
+                    const currentIdx = steps.indexOf(tipo);
+                    pontoData.proximoPasso = steps[Math.min(currentIdx + 1, steps.length - 1)];
+                    localStorage.setItem('griffus_ponto', JSON.stringify(pontoData));
+
+                    document.getElementById('success-title').textContent = 'Ponto registrado!';
+                    document.getElementById('success-msg').textContent =
+                        `${document.getElementById('ponto-label').textContent} às ${document.getElementById('ponto-time').textContent} — será sincronizado quando voltar a ter internet.`;
+                    this.goTo('success');
+                } catch (err) {
+                    console.error('Erro ao salvar ponto offline:', err);
+                    btn.disabled = false;
+                    alert('Erro ao salvar. Tente novamente.');
+                }
+            },
+
+            // ==========================================
+            // Photo handling
+            // ==========================================
+            previewPhoto(input, type) {
+                if (!input.files || !input.files[0]) return;
+                const file = input.files[0];
+                this.photos[type] = file;
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById(type + '-preview-img').src = e.target.result;
+                    document.getElementById(type + '-preview-container').style.display = 'block';
+                    document.getElementById(type + '-capture-btn').style.display = 'none';
+                    document.getElementById(type + '-submit-btn').disabled = false;
+                };
+                reader.readAsDataURL(file);
+            },
+
+            removePhoto(type) {
+                this.photos[type] = null;
+                document.getElementById(type + '-foto-input').value = '';
+                document.getElementById(type + '-preview-container').style.display = 'none';
+                document.getElementById(type + '-capture-btn').style.display = 'flex';
+                document.getElementById(type + '-submit-btn').disabled = true;
+            },
+
+            // ==========================================
+            // Work Photos (Fotos do PDV)
+            // ==========================================
+            addWorkPhoto(input) {
+                if (!input.files) return;
+                const maxPhotos = 10;
+
+                for (const file of input.files) {
+                    if (this.workPhotos.length >= maxPhotos) break;
+
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.workPhotos.push({ file, dataUrl: e.target.result });
+                        this._renderWorkPhotos();
+                    };
+                    reader.readAsDataURL(file);
+                }
+                input.value = '';
+            },
+
+            removeWorkPhoto(idx) {
+                this.workPhotos.splice(idx, 1);
+                this._renderWorkPhotos();
+            },
+
+            _renderWorkPhotos() {
+                const grid = document.getElementById('work-photos-grid');
+                const countEl = document.getElementById('work-photos-count');
+                if (!grid) return;
+
+                let html = '';
+                this.workPhotos.forEach((p, i) => {
+                    html += `<div class="photo-thumb">
+                        <img src="${p.dataUrl}" alt="Foto ${i + 1}">
+                        <button type="button" class="remove-thumb" onclick="OfflineForm.removeWorkPhoto(${i})">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>`;
+                });
+
+                // Add button (if < max)
+                if (this.workPhotos.length < 10) {
+                    html += `<label class="add-photo-btn">
+                        <input type="file" accept="image/*" capture="environment" style="display:none;"
+                               onchange="OfflineForm.addWorkPhoto(this)" multiple>
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Adicionar</span>
+                    </label>`;
+                }
+
+                grid.innerHTML = html;
+                if (countEl) countEl.textContent = `${this.workPhotos.length} / 10 fotos`;
+            },
+
+            // ==========================================
+            // GPS
+            // ==========================================
+            getGeo(type) {
+                const statusEl = document.getElementById(type + '-geo-status');
+                if (!navigator.geolocation) {
+                    statusEl.innerHTML = 'GPS não disponível';
+                    return;
+                }
+                navigator.geolocation.getCurrentPosition(
+                    (pos) => {
+                        this.geo.lat = pos.coords.latitude;
+                        this.geo.lng = pos.coords.longitude;
+                        statusEl.innerHTML = '<i class="fa-solid fa-check" style="color:var(--success);"></i> Localização obtida';
+                        statusEl.style.color = 'var(--success)';
+                    },
+                    () => {
+                        statusEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:var(--warning);"></i> Localização indisponível';
+                        statusEl.style.color = 'var(--warning)';
+                    },
+                    { enableHighAccuracy: true, timeout: 10000 }
+                );
+            },
+
+            // ==========================================
+            // Data helpers
+            // ==========================================
+            _getVisitData() {
+                try {
+                    return JSON.parse(localStorage.getItem('griffus_visits_today') || 'null');
+                } catch { return null; }
+            },
+
+            _updateVisitStatus(visitId, newStatus) {
+                const data = this._getVisitData();
+                if (!data || !data.visits) return;
+                const visit = data.visits.find(v => v.id == visitId);
+                if (visit) {
+                    visit.status = newStatus;
+                    localStorage.setItem('griffus_visits_today', JSON.stringify(data));
+                }
+            },
+
+            _esc(str) {
+                const div = document.createElement('div');
+                div.textContent = str || '';
+                return div.innerHTML;
+            },
+        };
+
+        // ==========================================
+        // Init — decide qual página mostrar
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            OfflineDB.open().catch(() => { });
+
+            // Parse URL params to decide which page to show
+            const params = new URLSearchParams(window.location.search);
+            const action = params.get('action');
+            const visitIdx = parseInt(params.get('idx') || '0');
+
+            if (action === 'checkin') {
+                OfflineForm.startCheckin(visitIdx);
+            } else if (action === 'checkout') {
+                OfflineForm.startCheckout(visitIdx);
+            } else if (action === 'ponto') {
+                OfflineForm.startPonto();
+            } else {
+                OfflineForm.goTo('dashboard');
+            }
+
+            // If back online, redirect to real app
+            window.addEventListener('online', () => {
+                if (confirm('Conexão restabelecida! Deseja voltar ao app online?')) {
+                    window.location.href = '/promotor/dashboard';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

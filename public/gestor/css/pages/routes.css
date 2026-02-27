@@ -1,0 +1,692 @@
+/* Layout Principal */
+.routes-container {
+    display: flex;
+    gap: 16px; 
+    height: calc(100vh - 120px); 
+    margin-top: 10px;
+    overflow: hidden;
+    transition: gap 0.3s ease;
+    padding-bottom: 10px;
+}
+
+/* Estado Oculto */
+.routes-container.promoters-hidden .promoters-sidebar {
+    width: 0;
+    min-width: 0; /* <--- ADICIONE ESTA LINHA */
+    margin: 0;
+    border: none; 
+    opacity: 0;
+}
+
+/* --- Sidebar de Promotores (Esquerda) --- */
+.promoters-sidebar {
+    width: 240px;
+    min-width: 240px;
+    background: #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow: hidden; /* CRUCIAL: Corta o conteúdo quando a largura diminui */
+    padding: 0 !important;
+    transition: width 0.3s ease, margin 0.3s ease, opacity 0.2s ease;
+    border: 1px solid #e5e7eb; /* Borda no container pai */
+}
+
+/* --- CORREÇÃO DO ESMAGAMENTO --- */
+/* Este container mantem a largura fixa do CONTEÚDO, mesmo se o pai diminuir */
+.sidebar-inner {
+    width: 240px; /* Largura fixa igual à largura original da sidebar */
+    min-width: 240px; /* Garante que nunca diminua */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estado Oculto */
+.routes-container.promoters-hidden .promoters-sidebar {
+    width: 0;
+    margin: 0;
+    border: none; /* Remove borda para sumir completamente */
+    opacity: 0;
+}
+
+.routes-container.promoters-hidden {
+    gap: 0;
+}
+
+/* Header da Sidebar */
+.sidebar-header {
+    padding: 12px 16px; 
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.sidebar-header h4 {
+    margin-bottom: 8px;
+    font-size: 14px; 
+    color: var(--text-dark);
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 6px 10px; 
+}
+
+.search-box i {
+    color: #9ca3af;
+    margin-right: 8px;
+    font-size: 12px;
+}
+
+.search-box input {
+    border: none;
+    background: transparent;
+    width: 100%;
+    outline: none;
+    font-size: 13px;
+}
+
+.promoters-list {
+    flex: 1;
+    overflow-y: auto;
+    list-style: none;
+    padding: 8px;
+}
+
+.promoter-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px; 
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 2px;
+}
+
+.promoter-item:hover { 
+    background-color: #f3f4f6; 
+}
+
+.promoter-item.active { background-color: #eff6ff; }
+
+.promoter-item .avatar-circle {
+    width: 32px; 
+    height: 32px;
+    border-radius: 50%; /* Mantém redondo pois está dentro do container fixo */
+    flex-shrink: 0; /* Garante que o avatar não encolha */
+    background-color: #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #4b5563;
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+.promoter-item.active .avatar-circle {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.promoter-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.promoter-info strong {
+    font-size: 13px;
+    color: var(--text-dark);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.promoter-info span {
+    font-size: 11px;
+    color: #6b7280;
+}
+
+/* --- Área do Board (Direita) --- */
+.schedule-board {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow: hidden;
+    transition: padding 0.3s ease;
+}
+
+.routes-container.promoters-hidden .schedule-board {
+    padding-left: 16px;
+}
+
+/* Board Controls */
+.board-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px; 
+    background: #fff;
+    border-radius: 10px;
+    flex-shrink: 0;
+    height: 60px; 
+}
+
+.selected-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-toggle-promoters {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+    background: transparent;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 8px;
+    font-size: 12px;
+}
+
+.selected-user .avatar-circle.large {
+    width: 38px;
+    height: 38px;
+    background-color: #3b82f6;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.selected-user h3 {
+    font-size: 14px;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+.selected-user span {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+/* routes.css */
+
+.date-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    background: #f8fafc; /* Fundo branco/cinza muito claro */
+    padding: 6px 16px; 
+    border-radius: 50px; /* Formato de pílula arredondado */
+    border: 1px solid #e2e8f0; /* Borda sutil */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+}
+
+.date-navigation .current-week {
+    font-weight: 600;
+    color: #475569; /* Cor do texto cinza azulado */
+    font-size: 13px;
+    padding: 0 8px;
+    white-space: nowrap;
+}
+
+/* Ajuste específico para os botões dentro da navegação */
+.date-navigation .btn-icon {
+    background: transparent;
+    border: none;
+    color: #3b82f6; /* Cor azul para as setas */
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background 0.2s;
+    margin: 0; /* Remove margens padrão */
+}
+
+.date-navigation .btn-icon:hover {
+    background-color: #eff6ff; /* Fundo azul bem claro ao passar o mouse */
+    color: #1d4ed8;
+}
+
+/* Kanban Grid */
+.kanban-grid {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    overflow-y: hidden; 
+    height: 100%;
+}
+
+.kanban-column {
+    min-width: 170px; 
+    flex: 1;
+    background: #fff;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e5e7eb;
+    height: 100%;
+}
+
+.kanban-column.backlog-column {
+    width: 200px; 
+    flex: none;
+    background: #f8fafc;
+    border-right: 2px dashed #e2e8f0;
+}
+
+.column-header {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f3f4f6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 12px; 
+}
+
+.sub-header {
+    font-size: 9px;
+    color: #9ca3af;
+    font-weight: 700;
+    padding: 6px 12px 0 12px;
+    letter-spacing: 0.5px;
+}
+
+.search-box.small {
+    margin: 8px 12px;
+    padding: 4px 8px;
+    background: #fff;
+}
+
+/* Cards (PDV) */
+.kanban-cards {
+    padding: 8px;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.kanban-cards::-webkit-scrollbar { width: 4px; }
+.kanban-cards::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+
+.kanban-dropzone {
+    flex: 1;
+    padding: 8px;
+    min-height: 50px;
+}
+
+.task-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 8px 10px; 
+    /* ADICIONADO: Espaço na direita para o botão X não cobrir o texto */
+    /* padding-right: 28px;  */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    cursor: grab;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.task-card:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Botão de Remover (NOVO) --- */
+.btn-remove-card {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border: 1px solid #fee2e2;
+    color: #ef4444; /* Vermelho */
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    display: none; /* Oculto por padrão */
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.task-card:hover .btn-remove-card {
+    display: flex; /* Aparece ao passar o mouse no card */
+}
+
+.btn-remove-card:hover {
+    background-color: #ef4444;
+    color: white;
+    border-color: #ef4444;
+}
+/* -------------------------------- */
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    align-items: center;
+}
+
+.card-top strong {
+    font-size: 12px;
+    color: #1f2937;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%; /* Ajustado para respeitar o padding do pai */
+}
+
+.card-top i {
+    color: #d1d5db;
+    font-size: 10px;
+    /* Opcional: some com o ícone de "grip" quando o botão X aparecer */
+    transition: opacity 0.2s;
+}
+
+.task-card:hover .card-top i {
+    opacity: 0; /* Esconde o grip para limpar a visão para o botão X */
+}
+
+.task-card p {
+    font-size: 10px;
+    color: #6b7280;
+    margin-bottom: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    /* Ajuste fino se necessário, mas o original estava ok */
+    position: absolute; 
+    bottom: 10px;
+    right: 8px;
+    border-radius: 50%;
+}
+
+.btn-add-dashed {
+    margin: 6px 10px;
+    border: 1px dashed #d1d5db;
+    background: transparent;
+    color: #6b7280;
+    padding: 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+/* --- NOVO FOOTER (Pesquisas) - Ajustado ao layout --- */
+.footer-actions {
+    padding: 12px;
+    border-top: 1px solid #e5e7eb; /* Linha separadora */
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: auto; /* Garante que fique no fundo */
+}
+
+.footer-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #9ca3af; /* Cinza claro */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-dashed-full {
+    width: 100%;
+    border: 1px dashed #ced4da; /* Borda tracejada suave */
+    background: #fff;
+    color: #6b7280;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-dashed-full:hover {
+    border-color: #3b82f6;
+    color: #3b82f6;
+    background: #eff6ff;
+}
+
+.badge {
+    padding: 1px 6px;
+    font-size: 10px;
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 1440px) {
+    .routes-container { gap: 10px; }
+    
+    .promoters-sidebar { 
+        width: 200px; 
+        min-width: 200px; /* <--- ADICIONE ESTA LINHA (Ajuste para telas menores) */
+    }
+    .sidebar-inner { width: 200px; min-width: 200px; } /* Ajuste interno */
+
+    .kanban-column.backlog-column { width: 180px; }
+    .kanban-column { min-width: 160px; }
+    
+    .promoter-info span { display: none; }
+    .selected-user h3 { font-size: 13px; }
+    .selected-user span { display: none; }
+}
+
+/* Feedback visual ao arrastar */
+.task-card.dragging {
+    opacity: 0.5;
+    border: 2px dashed #3b82f6;
+    background-color: #eff6ff;
+}
+
+/* Permitir drop na coluna vazia */
+.kanban-dropzone {
+    min-height: 100px; /* Garante área de drop mesmo sem cards */
+    transition: background 0.2s;
+}
+
+.kanban-dropzone.drag-over {
+    background-color: #f3f4f6;
+    border-radius: 6px;
+}
+
+/* --- MODAL STYLES --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+.modal-overlay.hidden {
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-content {
+    background: #fff;
+    width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+    padding: 16px;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #1f2937;
+}
+
+.btn-icon-small {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #9ca3af;
+}
+
+.modal-body {
+    padding: 16px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.checkbox-item:last-child { border-bottom: none; }
+
+.checkbox-item input[type="checkbox"] {
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.checkbox-item label {
+    font-size: 13px;
+    color: #374151;
+    cursor: pointer;
+    flex: 1;
+}
+
+.modal-footer {
+    padding: 12px 16px;
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.btn-ghost {
+    background: transparent;
+    border: 1px solid #d1d5db;
+    color: #374151;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn-ghost:hover { background: #f3f4f6; }
+
+/* Estilo dos itens de Pesquisa no Board (Mantido) */
+.survey-item {
+    background: #eff6ff; 
+    border: 1px solid #bfdbfe;
+    color: #1e40af;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+.survey-item .delete-survey { cursor: pointer; color: #60a5fa; }
+.survey-item .delete-survey:hover { color: #ef4444; }
+
+/* --- Modal de Mapa (Ajustes) --- */
+.map-content {
+    width: 600px; /* Mais largo que o modal de pesquisa */
+    max-width: 90%;
+}
+
+.modal-body-map {
+    padding: 0;
+    height: 400px; /* Altura fixa para o mapa */
+    position: relative;
+}
+
+#leafletMap {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* --- Botão de Mapa no Header da Coluna --- */
+.btn-map-header {
+    background: transparent;
+    border: 1px solid #e5e7eb;
+    color: #3b82f6; /* Azul */
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    transition: all 0.2s;
+}
+
+.btn-map-header:hover {
+    background: #eff6ff;
+    border-color: #3b82f6;
+    color: #1d4ed8;
+}

@@ -1,0 +1,29 @@
+.btn-icon {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: var(--white);
+    color: var(--text-light);
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+}
+
+.btn-primary {
+    background-color: var(--sidebar-active);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+}
+
+.load-more-btn {
+    width: 100%; padding: 10px; margin-top: 20px; 
+    background: transparent; border: 1px solid #e5e7eb; 
+    border-radius: 8px; color: #6b7280; cursor: pointer;
+}

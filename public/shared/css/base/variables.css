@@ -1,0 +1,16 @@
+:root {
+    /* Paleta de Cores baseada no layout SGC */
+    --sidebar-bg: #111827;
+    --sidebar-text: #9ca3af;
+    --sidebar-active: #2563eb;
+    --bg-body: #f3f4f6;
+    --text-dark: #1f2937;
+    --text-light: #6b7280;
+    --white: #ffffff;
+    
+    /* Status Colors */
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #3b82f6;
+}
